@@ -1,12 +1,14 @@
 import React from 'react';
 import axios from 'axios';
 import './App.css';
+import UserCard from './Components/UserCard';
 
 class App extends React.Component {
 
   state = {
     user: [],
-    followersList: []
+    followersList: [],
+    followersData: []
   }
 
   componentDidMount() {
@@ -27,11 +29,24 @@ class App extends React.Component {
         this.setState({
           followersList: res.data
         });
-        console.log(this.state.followersList);
+        // Create card for each follower using axios call for their profile
+        this.state.followersList.forEach( (follower) => {
+          axios.get(`${ follower.url }`)
+            .then( res => {
+              this.setState({
+                followersData: [...this.state.followersData, res.data]
+              });
+            })
+            .catch( err => {
+              console.log(err);
+            })
+        });
       })
       .catch( err => {
         console.log(err);
       })
+
+    console.log(this.state.followersList);
   }
 
   render() {
@@ -42,8 +57,17 @@ class App extends React.Component {
           <p>❤️'s</p>
           <img src={ require('./assets/githublogo.png').default } alt="GitHub Logo" />
         </header>
-        <section className="cards">
+        <section className='cards'>
           <h2>My Card:</h2>
+          <UserCard user={ this.state.user } />
+        </section>
+        <section className='cards'>
+          <h2>My Followers:</h2>
+          <>
+          {this.state.followersData.map( (follower) => (
+            <UserCard key={ follower.id } user={ follower }/>
+          ))}
+          </>
         </section>
       </div>
     );

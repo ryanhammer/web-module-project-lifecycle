@@ -1,25 +1,28 @@
-import logo from './logo.svg';
+import React from 'react';
+import axios from 'axios';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+
+  state = {
+    user: [],
+    followers: []
+  }
+
+  render() {
+    return (
+      <div className='App'>
+        <header class='header'>
+          <img src={ require('./assets/lambdalogo.png').default } alt='Lambda Logo'/>
+          <p>❤️'s</p>
+          <img src={ require('./assets/githublogo.png').default } alt="GitHub Logo" />
+        </header>
+        <section class="cards">
+          <h2>My Card:</h2>
+        </section>
+      </div>
+    );
+  }
 }
 
 export default App;

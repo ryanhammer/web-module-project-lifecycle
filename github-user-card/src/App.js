@@ -6,17 +6,28 @@ class App extends React.Component {
 
   state = {
     user: [],
-    followers: []
+    followersList: []
   }
 
   componentDidMount() {
     console.log('The component mounted');
-    axios.get(`https://api.github.com/users/ryanhammer`)
+    axios.get('https://api.github.com/users/ryanhammer')
       .then( res => {
         this.setState({
           user: res.data
         });
         console.log(this.state.user);
+      })
+      .catch( err => {
+        console.log(err);
+      })
+
+    axios.get('https://api.github.com/users/ryanhammer/followers')
+      .then( res => {
+        this.setState({
+          followersList: res.data
+        });
+        console.log(this.state.followersList);
       })
       .catch( err => {
         console.log(err);

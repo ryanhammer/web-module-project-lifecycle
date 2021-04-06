@@ -9,15 +9,29 @@ class App extends React.Component {
     followers: []
   }
 
+  componentDidMount() {
+    console.log('The component mounted');
+    axios.get(`https://api.github.com/users/ryanhammer`)
+      .then( res => {
+        this.setState({
+          user: res.data
+        });
+        console.log(this.state.user);
+      })
+      .catch( err => {
+        console.log(err);
+      })
+  }
+
   render() {
     return (
       <div className='App'>
-        <header class='header'>
+        <header className='header'>
           <img src={ require('./assets/lambdalogo.png').default } alt='Lambda Logo'/>
           <p>❤️'s</p>
           <img src={ require('./assets/githublogo.png').default } alt="GitHub Logo" />
         </header>
-        <section class="cards">
+        <section className="cards">
           <h2>My Card:</h2>
         </section>
       </div>

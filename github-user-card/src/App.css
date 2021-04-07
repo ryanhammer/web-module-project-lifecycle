@@ -111,3 +111,8 @@ table {
   font-style: italic;
   margin: 3px 0 10px;
 }
+
+h2 {
+  font-size: 2rem;
+  color: black;
+}
